@@ -1,2 +1,2 @@
 # SD
-Data Structures courses,assignments completed during academic year 2019-2020
+Data Structures course,assignments completed during academic year 2019-2020
