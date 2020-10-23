@@ -1,0 +1,112 @@
+SACELEANU Andrei-Iulian 311CB
+
+
+Tema 2 SD Minimal Browser
+
+	Functionalitatea browserului web este asigurata de mai multe structuri de
+date.
+	Browserul implementat poate crea si inchide taburi,precum si a naviga
+printre acestea.Intern,taburile se regasesc intr-o lista dublu inlantuita
+circulara cu santinela.Fiecare tab are propriul istoric de navigare,accesibil
+prin intermediul stivelor back_stack si forward_stack.De asemenea,in cadrul
+browserului,utilizatorul poate descarca anumite resurse disponibile,asociate
+fiecarui pagini web accesate.Progresul acestor descarcari poate fi vizualizat
+in cadrul cozii de prioritati si se realizeaza la trecerea simulata a timpului.
+	Pe langa istoricul fiecarui tab,se retine si istoricul global al sesiunii
+in cadrul unei cozi.
+
+Descrierea operatiilor
+
+set_band
+-initial,se seteaza variabila bandwidth la 1024 B
+-prin aceasta comanda,utilizatorul poate modifica valoarea acesteia
+
+newtab
+-se aloca un element de tip tab si se adauga la finalul listei dublu inlantuite
+de taburi,indicatorul current_tab punctand la acesta ulterior
+
+deltab
+-se sterge ultimul tab deschis.
+-se fac dealocarile necesare,tinand cont si de modificarea indicatorului de 
+tab curent in caz ca acesta se afla pe ultima pozitie inainte de primirea
+comenzii
+
+change_tab index
+-se modifica pozitia indicatorului de tab curent la tabul de indice index din
+lista
+
+print_open_tabs
+-se parcurge lista de taburi si se afiseaza numele paginilor deschise,respectiv
+empty daca tabul nu are inca o pagina web deschisa
+
+goto url
+-in tabul curent se navigheaza la o noua pagina cu numele url
+-daca in acest tab exista deja o pagina deschisa,aceasta ajunge in stiva de
+back a tabului si,in acelasi timp,se goleste stiva de forward
+-aceasta comanda determina si avansarea descarcarilor curente corespunzatoare
+unei unitati de timp
+
+back
+-pagina web asociata tabului curent devine cea care este stocata in varful 
+stivei de back,daca aceasta este nevida
+-pagina curenta anterior realizarii comenzii este introdusa in stiva de
+forward
+
+forward
+-pagina web asociata tabului curent devine cea care este stocata in varful 
+stivei de forward,daca aceasta este nevida
+-pagina curenta anterior realizarii comenzii este introdusa in stiva de
+back
+
+*la back si forward,imposibilitatea modificarii paginii curente este insotita
+de un mesaj de eroare
+
+history
+-se extrag secvential elementele din coada istoricului global global_history
+si se afiseaza numele paginilor accesate
+-coada global_history se reface cu ajutorul unei cozi auxiliare
+
+del_history nr
+-din istoricul global sunt scoase un numar de nr elemente
+-in cazul valorii 0 furnizate ca parametru,se sterge intreg istoricul,fara
+a afecta stivele de back si forward ale fiecarui tab deschis
+
+list_dl
+-se afiseaza resursele descarcabile din pagina curenta prin nume si dimensiune
+-afisarea este conditionata de existenta,in tabul curent,a unei pagini 
+cu resurse/care nu este goala
+
+downloads
+-se afiseaza istoricul descarcarilor din browser
+-mai intai,se afiseaza descarcarile nefinalizate in ordinea crescatoare a
+dimensiunii ramase de descarcat,respectiv descrescator dupa cat de recent a
+ fost introdusa in coada de prioritati resursa(cea mai recenta prima)
+-dupa descarcarile nefinalizate,se afiseaza lista de descarcari finalizate
+
+download index
+-se realizeaza o copie a resursei cu indexul index din pagina curenta si este
+adaugata in coada de descarcari active
+-la fiecare operatie de download,variabila priority se incrementeaza pentru
+a simula ordinea de introducere a elementelor in coada,care s-ar fi pierdut
+in urma sortarii fara aceasta
+-coada se sorteaza crescator dupa dimensiunea ramasa de descarcat,respectiv,
+in cazul unor dimensiuni egale,descrescator dupa campul priority
+
+wait seconds
+-se realizeaza o trecere fictiva a timpului,permitand descarcarilor active sa
+avanseze
+-se calculeaza dimensiunea maxima utila pentru acest interval de timp
+(seconds*bandwidth)
+-cat timp aceasta cantitate este nenula,se efectueaza descarcari
+-daca cantitatea disponibila este mai mica decat dimensiunea ramasa de
+descarcat a primei resurse din coada,se descarca si aceasta portiune iar 
+bitii disponibili/utili sunt setati la 0
+-altfel,se scade din bitii utili remainingul resursei curente,iar aceasta
+este transferata in lista de descarcari finalizate
+*comanda goto este insotita de o comanda de tipul "wait 1"
+
+Punctaj obtinut local
+Total:85/85
+Bonus:0/20
+
+ 
