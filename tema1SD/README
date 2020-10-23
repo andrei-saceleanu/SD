@@ -1,0 +1,80 @@
+Săceleanu Andrei-Iulian 311CB
+
+Tema 1 Baza de date
+
+Structura de reprezentare a bazei de date utilizează o serie de liste simplu
+inlantuite,respectiv multimea de tabele,coloanele fiecarui tabel,cat si liniile
+si continutul acestora.
+Baza de date suporta trei tipuri de date:int,float si string.Fiecare dintre 
+acestea este prelucrat in structura interna cu ajutorul unor functii dedicate:
+-de alocare celula de continut(alocCelulaInt,alocCelulaFloat,alocCelulaString);
+-de alocare linie(alocInt,alocFloat,alocString);
+-de eliberare linie(freeInt,freeFloat,freeString).
+Programul utilizeaza o consola interactiva.In functie de comanda furnizata,
+structura interna este actualizata sau este afisat aspectul curent al acesteia.
+In cazul unor comenzi cu format necorespunzator sau a unei neconcordante cu 
+baza de date(tabel inexistent in care se face adaugare,cautare pe coloana,etc),
+programul instiinteaza utilizatorul asupra erorii.
+
+Data Definition
+INIT_DB
+-se aloca memorie pentru o baza de date(t_db *)
+-baza de date este vida,campurile tables,lines,columns sunt NULL
+
+DELETE_DB
+-se elibereaza toata memoria alocata/care nu a fost dealocata anterior de alte
+comenzi de tip DELETE
+-opreste executia consolei interactive
+
+CREATE tabel
+-se adauga la baza de date un tabel nou construit
+-vectorul de nume de coloane se transforma intr-o lista simplu inlantuita cu
+elemente t_column*
+-fiecare tabel este caracterizat de un tip de date care va indica tipul de 
+linie utilizat(t_int/float/stringLine)
+
+DELETE tabel
+-se dealoca intreaga structura aferenta unui tabel(linii,coloane,structura in
+sine)
+
+*in functie de tipul de date,se folosesc functiile de tip free corespunzatoare
+
+Data Query
+PRINT_DB
+-se afiseaza intreaga baza de date curenta
+-se parcurge lista de tabele si se afiseaza fiecare cu functia Print_table
+
+PRINT tabel
+-are la baza aceeasi functie Print_table 
+
+SEARCH tabel 
+-pentru fiecare linie din tabel,se verifica elementul corespunzator coloanei
+date ca parametru
+-daca este indeplinita relatia data ca parametru,se afiseaza linia
+-fiecare tip se compara cu ajutorul unor functii specifice(relationInt/Float/
+String)
+
+Data Manipulation
+ADD tabel [valori]
+-se adauga o linie la un tabel specificat,al carei continut este dat de vectorul
+de valori(in sursa line_content[])
+-se construieste linia cu tipul similar cu cel al tabelului si apoi se adauga
+la finalul listei de linii
+
+DELETE tabel coloana relatie valoare
+-pentru fiecare linie din tabel, se verifica elementul corespunzator coloanei
+ date ca parametru
+-daca este indeplinita comparatia data de "relatie",se sterge linia din lista de
+linii
+
+CLEAR tabel
+-se sterge intreaga lista de linii din tabel
+-structura de tabel se pastreaza(coloanele,tipul,numele raman,tabelul este inca
+in baza de date,insa nu contine nicio linie dupa aceasta comanda)
+ca parametru
+
+*Punctaj obtinut pe checkerul local
+Punctaj total 85/85
+Punctaj valgrind 20/20
+
+
